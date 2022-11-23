@@ -8,13 +8,24 @@ use board https://wiki.sipeed.com/m3axpi
 
 > h264 need update kernel.
 
-## build
+## usage onboard(m3axpi)
 
-run this code on m3axpi board.
+### config
 
-`gcc /home/usb-uvc-gadget/main.c -lpthread -o uvc-gadget && ./uvc-gadget`
+- `./uvc-gadget.sh start` >>> create /dev/video0
 
-and change buffer && buflen.
+```
+	create_frame $FUNCTION 640 360 uncompressed u
+	create_frame $FUNCTION 1280 720 uncompressed u
+	create_frame $FUNCTION 1280 720 mjpeg m
+	create_frame $FUNCTION 1920 1080 mjpeg m
+```
+
+### shell
+
+`gcc main.c -lpthread -o uvc-gadget && ./uvc-gadget`
+
+and change buffer && buflen, use `./uvc-gadget -d /dev/video0` >>> pc will find this usb webcam.
 
 ```c
 
@@ -59,21 +70,6 @@ static void uvc_video_fill_buffer(struct uvc_device *dev, struct v4l2_buffer *bu
 }
 
 ```
-
-## usage
-
-### onboard(m3axpi)
-
-- `./uvc-gadget.sh start` >>> create /dev/video0
-
-```
-	create_frame $FUNCTION 640 360 uncompressed u
-	create_frame $FUNCTION 1280 720 uncompressed u
-	create_frame $FUNCTION 1280 720 mjpeg m
-	create_frame $FUNCTION 1920 1080 mjpeg m
-```
-
-- `./uvc-gadget -d /dev/video0` >>> pc will find this usb webcam.
 
 on board
 
