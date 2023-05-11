@@ -61,7 +61,7 @@ create_msd() {
 	fi
 
 	echo "\tCreating MSD gadget functionality"
-	mkdir functions/$FUNCTION
+	mkdir -p functions/$FUNCTION
 	echo 1 > functions/$FUNCTION/stall
 	echo $BACKING_STORE > functions/$FUNCTION/lun.0/file
 	echo 1 > functions/$FUNCTION/lun.0/removable
@@ -120,14 +120,14 @@ create_uvc() {
 	FUNCTION=$2
 
 	echo "	Creating UVC gadget functionality : $FUNCTION"
-	mkdir functions/$FUNCTION
+	mkdir -p functions/$FUNCTION
 
 	create_frame $FUNCTION 640 360 uncompressed u
 	create_frame $FUNCTION 1280 720 uncompressed u
 	create_frame $FUNCTION 1280 720 mjpeg m
 	create_frame $FUNCTION 1920 1080 mjpeg m
 
-	mkdir functions/$FUNCTION/streaming/header/h
+	mkdir -p functions/$FUNCTION/streaming/header/h
 	cd functions/$FUNCTION/streaming/header/h
 	ln -s ../../uncompressed/u
 	ln -s ../../mjpeg/m
@@ -136,7 +136,7 @@ create_uvc() {
 	cd ../../class/hs
 	ln -s ../../header/h
 	cd ../../../control
-	mkdir header/h
+	mkdir -p header/h
 	ln -s header/h class/fs
 	ln -s header/h class/ss
 	cd ../../../
@@ -208,8 +208,8 @@ case "$1" in
 	echo "OK"
 
 	echo "Creating Config"
-	mkdir configs/c.1
-	mkdir configs/c.1/strings/0x409
+	mkdir -p configs/c.1
+	mkdir -p configs/c.1/strings/0x409
 
 	echo "Creating functions..."
 	#create_msd configs/c.1 mass_storage.0 $USBFILE
